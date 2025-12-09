@@ -4,7 +4,7 @@
 
 
 ```
-sudo apt install python3-scrapy  python3-requests-ntlm libsasl2-dev libldap2-dev
+sudo apt update && sudo apt install python3-scrapy  python3-requests-ntlm libsasl2-dev libldap2-dev
 
 sudo cp <test.py> /usr/local/bin/<test.py> && sudo chmod +x /usr/local/bin/<test.py> && test.py -h
 
