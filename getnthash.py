@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.13"
 # dependencies = [
@@ -311,3 +311,4 @@ if __name__ == '__main__':
             import traceback
             traceback.print_exc()
         logging.error(str(e))
+
