@@ -1,0 +1,30 @@
+# Spawn Python PTY for interactive shell
+python3 -c "import pty;pty.spawn('/bin/bash')"
+
+# Set terminal environment variables
+export TERM=xterm
+export SHELL=bash
+export HISTFILE=/dev/null
+
+# Background with Ctrl+Z, then foreground with raw mode
+stty raw -echo; fg
+
+# Reset terminal
+reset
+
+# Alternative method using script
+script /dev/null -c /bin/bash
+
+# Spawn interactive shell
+/bin/sh -i
+
+/bin/bash -p
+
+#Terminal Configuration
+
+# Check current terminal settings
+stty -a
+
+# Set terminal dimensions
+export TERM=<TERMINAL>
+stty rows <num> columns <cols>
