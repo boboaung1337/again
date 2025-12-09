@@ -25,4 +25,10 @@ rm -f /home/kali/.nxc/workspaces/default/smb.db
 #ACL Analysis
 getfacl <folder or file>
 
+#Generate hosts and krb5.conf
+nxc smb 10.129.101.209 --generate-hosts-file hosts
+
+nxc smb dc.voleur.htb --generate-krb5-file krb5.conf
+
+
 ```
