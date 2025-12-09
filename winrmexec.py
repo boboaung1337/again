@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os, sys, re, uuid, logging, ssl
 
 from base64 import b64encode, b64decode
