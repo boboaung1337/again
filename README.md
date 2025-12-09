@@ -4,7 +4,7 @@
 
 
 ```
-sudo apt install python3-scrapy
+sudo apt install python3-scrapy  python3-requests-ntlm
 
 sudo cp <test.py> /usr/local/bin/<test.py> && sudo chmod +x /usr/local/bin/<test.py> && test.py -h
 
