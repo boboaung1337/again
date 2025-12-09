@@ -1,4 +1,4 @@
-#!/usr/bin/env 
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
@@ -666,3 +666,4 @@ elif(args.generate == "theme"):
 	create_theme(args.generate, args.server, os.path.join(args.filename, args.filename + ".theme"))
 
 print("Generation Complete.")
+
