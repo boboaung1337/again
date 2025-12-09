@@ -5,8 +5,6 @@
 
 ```
 
-sudo cp <test.py> /usr/local/bin/<test.py> && sudo chmod +x /usr/local/bin/<test.py> && test.py -h
-
 BloodHound --disable-gpu --no-sandbox
 
 # Check what's using port 8080
