@@ -1,0 +1,8 @@
+# Convert Windows-formatted SSH key to Unix format
+dos2unix id_rsa
+
+# Add newline to SSH key if missing
+echo "" >> id_rsa
+
+# SSH with specific key
+ssh -i id_rsa root@sightless.htb
