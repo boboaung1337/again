@@ -16,4 +16,11 @@ sudo lsof -i :8080
 # Kill process
 sudo kill -9 <PID>
 
+# Backup NXC SMB database
+cp /home/kali/.nxc/workspaces/default/smb.db ~/nxc_smb.bak
+
+# Remove NXC database
+rm -f /home/kali/.nxc/workspaces/default/smb.db
+
+
 ```
