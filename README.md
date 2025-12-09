@@ -22,5 +22,7 @@ cp /home/kali/.nxc/workspaces/default/smb.db ~/nxc_smb.bak
 # Remove NXC database
 rm -f /home/kali/.nxc/workspaces/default/smb.db
 
+#ACL Analysis
+getfacl <folder or file>
 
 ```
