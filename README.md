@@ -25,6 +25,9 @@ rm -f /home/kali/.nxc/workspaces/default/smb.db
 #ACL Analysis
 getfacl <folder or file>
 
+# Install krb5-user for Kerberos
+sudo apt install krb5-user
+
 #Generate hosts and krb5.conf
 nxc smb 10.129.101.209 --generate-hosts-file hosts
 
