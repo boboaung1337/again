@@ -1,0 +1,15 @@
+# Clone and compile John the Ripper
+git clone https://github.com/openwall/john.git
+cd john/src
+./configure
+make -s clean && make -sj4
+
+# KeePass Cracking
+# Extract KeePass hash
+cd /home/kali/john/run
+./keepass2john /home/kali/Downloads/it.kdbx > hash.txt
+cat hash.txt
+
+# Crack with rockyou.txt
+./john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt --format=KeePass
+
