@@ -29,5 +29,9 @@ nxc smb dc.voleur.htb --generate-krb5-file krb5.conf
 #BloodHound
 https://github.com/SpecterOps/BloodHound-Legacy/releases/tag/v4.3.1
 
+#droopescan
+uv tool install --python 3.11 droopescan
+
+
 
 
