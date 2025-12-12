@@ -100,7 +100,7 @@ echo ""
 {
     # Update and install system packages
     sudo apt update > /dev/null 2>&1
-    sudo apt install -y python3-scrapy python3-requests-ntlm libsasl2-dev libldap2-dev > /dev/null 2>&1
+    sudo apt install -y python3-scrapy python3-requests-ntlm libsasl2-dev libldap2-dev python3-pyftpdlib > /dev/null 2>&1
     
     # Install uv
     curl -LsSf https://astral.sh/uv/install.sh | sh > /dev/null 2>&1
