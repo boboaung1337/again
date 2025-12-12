@@ -32,6 +32,9 @@ https://github.com/SpecterOps/BloodHound-Legacy/releases/tag/v4.3.1
 #droopescan
 uv tool install --python 3.11 droopescan
 
+#joomscan
+joomscan -h
+
 
 
 
