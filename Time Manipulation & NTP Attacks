@@ -7,11 +7,15 @@
 
 sudo timedatectl set-ntp false | sudo ntpdate tombwatcher.htb  | sudo timedatectl set-ntp true
 
+
+fixtime -u http://10.129.232.167
+
 sudo faketime "$(sudo ntpdate scepter.htb 2>&1 | grep -oP '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}')" /bin/date
 
 
 # Python script for time manipulation
 wget https://raw.githubusercontent.com/5epi0l/ADUtilities/refs/heads/main/FixTime/fixtime.py>
 python3 fixtime.py -u TARGET_URL [--verbose] [--restore-ntp]
+
 
 
