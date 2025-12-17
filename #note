@@ -39,4 +39,16 @@ joomscan -h
 fping -a -g 172.16.8.0/24 2>&1 | grep "duplicate"
 
 
+#scan
+masscan -p1-65535,U:1-65535 10.200.65.33  --rate=1000 -p1-65535,U:1-65535 -e tun0 > ports
+
+ports=$(cat ports | awk -F " " '{print $4}' | awk -F "/" '{print $1}' | sort -n | tr '\n' ',' | sed 's/,$//')
+
+nmap -Pn -sV -sC -p$ports 10.200.65.33 
+
+
+rustscan -a 10.129.230.183 -r 1-65535 --ulimit 5000 -t 1000
+
+
+###########3
 
