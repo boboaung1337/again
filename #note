@@ -35,6 +35,8 @@ uv tool install --python 3.11 droopescan
 #joomscan
 joomscan -h
 
+#
+fping -a -g 172.16.8.0/24 2>&1 | grep "duplicate"
 
 
 
