@@ -50,5 +50,9 @@ nmap -Pn -sV -sC -p$ports 10.200.65.33
 rustscan -a 10.129.230.183 -r 1-65535 --ulimit 5000 -t 1000
 
 
+Invoke-adPEAS -Module ADCS
+
+
 ###########3
+
 
