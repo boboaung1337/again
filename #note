@@ -65,3 +65,10 @@ These are key4.db and logins.json .
 
 
 uv tool install git+https://github.com/brightio/penelope
+
+
+sudo ip link set docker0 down
+
+
+
+
