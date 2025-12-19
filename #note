@@ -71,6 +71,7 @@ penelope.py -i 0.0.0.0 -p 4444 -O
 
 sudo ip link set docker0 down
 
+sudo systemctl start docker
 
 
 
