@@ -56,7 +56,12 @@ eyewitness --web -x web_discovery.xml -d inlanefreight_eyewitness
 Invoke-adPEAS -Module ADCS
 
 
-###########3
+###########
+
+#firepwd
+
+Directory: C:\users\nikk37\AppData\Roaming\Mozilla\Firefox\Profiles\br53rxeg.default-release
+These are key4.db and logins.json .
 
 
-
+uv tool install git+https://github.com/brightio/penelope
