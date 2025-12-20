@@ -49,6 +49,10 @@ nmap -Pn -sV -sC -p$ports 10.200.65.33
 
 rustscan -a 10.129.230.183 -r 1-65535 --ulimit 5000 -t 1000
 
+nano port
+
+ports=$(cat port | sed -n 's/^\([0-9]*\)\/tcp.*/\1/p' | tr '\n' ',' | sed 's/,$//')
+
 eyewitness --web -x web_discovery.xml -d inlanefreight_eyewitness
 
 
@@ -72,6 +76,7 @@ penelope.py -i 0.0.0.0 -p 4444 -O
 sudo ip link set docker0 down
 
 sudo systemctl start docker
+
 
 
 
