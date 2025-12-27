@@ -10,4 +10,5 @@ pyasn1>=0.4.8
 pyftpdlib
 pituophis
 selenium
+minikerberos
 
