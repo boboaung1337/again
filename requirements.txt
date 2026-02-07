@@ -11,4 +11,6 @@ pyftpdlib
 pituophis
 selenium
 minikerberos
+ldap3
+pycryptodome
 
