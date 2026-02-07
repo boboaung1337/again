@@ -1,5 +1,6 @@
 #note
 
+https://github.com/shmuelamar/cracken
 
 BloodHound --disable-gpu --no-sandbox
 
@@ -84,5 +85,6 @@ sudo apt purge samba samba-common samba-common-bin
 
 # Remove OpenLDAP
 sudo apt purge slapd ldap-utils
+
 
 
