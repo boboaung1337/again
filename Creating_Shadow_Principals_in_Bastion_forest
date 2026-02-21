@@ -1,0 +1,11 @@
+# Get the SID for the Enterprise Admins group of the user forest
+$ShadowPrincipalSid = (Get-ADGroup -Identity 'Enterprise Admins' -Properties ObjectSID -Server eulogistics.corp).ObjectSID
+
+# Container location
+$Container = 'CN=Shadow Principal Configuration,CN=Services,CN=Configuration,DC=controlcenter,DC=corp'
+
+# Create the Shadow principal
+New-ADObject -Type msDS-ShadowPrincipal -Name "Tom" -Path $Container -OtherAttributes @{'msDS-ShadowPrincipalSid'= $ShadowPrincipalSid}
+
+# We can add a user from bastion forest to an existing bastion forest's shadow security principal container named Tom
+Set-ADObject -Identity "CN=Tom,CN=Shadow Principal Configuration,CN=Services,CN=Configuration,DC=controlcenter,DC=corp" -Add @{'member'="CN=Administrator,CN=Users,DC=controlcenter,DC=corp"} -Verbose	
