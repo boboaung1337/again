@@ -13,4 +13,6 @@ selenium
 minikerberos
 ldap3
 pycryptodome
+keystone
+keystone-engine
 
