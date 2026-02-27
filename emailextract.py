@@ -4,6 +4,16 @@
 
 # module import heehoo
 import requests, json, argparse
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+...SNIP...
+try:
+ s.get(url+"/owa", verify=False)
+ URL = url
+except requests.exceptions.MissingSchema:
+ s.get("https://"+url+"/owa", verify=False)
+ URL = "https://"+url
 
 # argparser hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 parser = argparse.ArgumentParser(description="Extract the Global Address List (GAL) on Exchange 2013 servers via Outlook Web Access (OWA)")
