@@ -12,7 +12,7 @@ def sid_to_bytes(sid_string):
         sid_string (str): Windows SID (e.g., 'S-1-5-21-2327345182-1863223493-3435513819')
     
     Returns:
-        str: Formatted byte array string
+        tuple: (comma_separated_bytes, continuous_hex_string)
     """
     
     # Parse SID components
@@ -37,18 +37,22 @@ def sid_to_bytes(sid_string):
     # Format: [Revision][SubAuthorityCount][IdentifierAuthority(6 bytes)][SubAuthorities(variable)]
     
     result_bytes = []
+    raw_bytes = []
     
     # 1. Revision (1 byte)
     result_bytes.append(f"0x{revision:02X}")
+    raw_bytes.append(revision)
     
     # 2. SubAuthority Count (1 byte)
     result_bytes.append(f"0x{len(subauthorities):02X}")
+    raw_bytes.append(len(subauthorities))
     
     # 3. Identifier Authority (6 bytes - big endian)
     # For values <= 0xFFFFFFFF, pad with zeros
     auth_bytes = identifier_authority.to_bytes(6, byteorder='big')
     for b in auth_bytes:
         result_bytes.append(f"0x{b:02X}")
+        raw_bytes.append(b)
     
     # 4. SubAuthorities (4 bytes each - little endian)
     for subauth in subauthorities:
@@ -56,8 +60,15 @@ def sid_to_bytes(sid_string):
         subauth_bytes = subauth.to_bytes(4, byteorder='little')
         for b in subauth_bytes:
             result_bytes.append(f"0x{b:02X}")
+            raw_bytes.append(b)
     
-    return ', '.join(result_bytes)
+    # Create comma-separated format
+    comma_format = ', '.join(result_bytes)
+    
+    # Create continuous hex string format (with 0x prefix)
+    hex_string = '0x' + ''.join([f"{b:02X}" for b in raw_bytes])
+    
+    return comma_format, hex_string
 
 
 def sid_to_bytes_alternative(sid_string):
@@ -79,17 +90,22 @@ def sid_to_bytes_alternative(sid_string):
     
     # Build the byte array
     byte_array = []
+    raw_bytes = []
     
     # Add revision
     byte_array.append(f"0x{revision:02X}")
+    raw_bytes.append(revision)
     
     # Add subauthority count
     byte_array.append(f"0x{len(subauthorities):02X}")
+    raw_bytes.append(len(subauthorities))
     
     # Add authority (6 bytes, big endian)
     auth_hex = format(authority, '012x')  # 6 bytes = 12 hex chars
     for i in range(0, 12, 2):
+        byte_val = int(auth_hex[i:i+2], 16)
         byte_array.append(f"0x{auth_hex[i:i+2].upper()}")
+        raw_bytes.append(byte_val)
     
     # Add subauthorities (4 bytes each, little endian)
     for subauth in subauthorities:
@@ -99,8 +115,15 @@ def sid_to_bytes_alternative(sid_string):
         little_endian = [hex_val[i:i+2] for i in range(6, -2, -2)]
         for byte in little_endian:
             byte_array.append(f"0x{byte.upper()}")
+            raw_bytes.append(int(byte, 16))
     
-    return ', '.join(byte_array)
+    # Create comma-separated format
+    comma_format = ', '.join(byte_array)
+    
+    # Create continuous hex string format (with 0x prefix)
+    hex_string = '0x' + ''.join([f"{b:02X}" for b in raw_bytes])
+    
+    return comma_format, hex_string
 
 
 def test_with_examples():
@@ -125,8 +148,11 @@ def test_with_examples():
     for sid in test_sids:
         print(f"\nSID: {sid}")
         try:
-            result = sid_to_bytes(sid)
-            print(f"Bytes: {result}")
+            comma_format, hex_string = sid_to_bytes(sid)
+            print(f"Comma format: {comma_format}")
+            print(f"Hex string:   {hex_string}")
+            byte_count = len(comma_format.split(','))
+            print(f"Total bytes: {byte_count}")
         except Exception as e:
             print(f"Error: {e}")
     
@@ -136,11 +162,11 @@ def test_with_examples():
 def main():
     """Main function with user input"""
     print("Windows SID to Byte Array Converter")
-    print("-" * 40)
+    print("-" * 60)
     print("Enter a SID (e.g., S-1-5-21-2327345182-1863223493-3435513819)")
     print("Or type 'test' to run examples")
     print("Or type 'quit' to exit")
-    print("-" * 40)
+    print("-" * 60)
     
     while True:
         user_input = input("\nSID: ").strip()
@@ -152,11 +178,12 @@ def main():
             test_with_examples()
         elif user_input:
             try:
-                result = sid_to_bytes(user_input)
-                print(f"\nResult: {result}")
+                comma_format, hex_string = sid_to_bytes(user_input)
+                print(f"\nComma format: {comma_format}")
+                print(f"Hex string:   {hex_string}")
                 
                 # Also show byte count
-                byte_count = len(result.split(','))
+                byte_count = len(comma_format.split(','))
                 print(f"Total bytes: {byte_count}")
                 
             except Exception as e:
