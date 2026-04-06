@@ -15,4 +15,8 @@ ldap3
 pycryptodome
 keystone
 keystone-engine
-
+termcolor
+cprint
+pycryptodomex
+requests
+ratelimit
