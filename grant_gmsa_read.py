@@ -21,7 +21,7 @@ conn = ldap3.Connection(
 
 print(f"[+] Connected as: {conn.extend.standard.who_am_i()}")
 
-# :warning: NOTE: You DO NOT need this attack anymore (see below)
+# :warning: NOTE:  use Wallace Everette's ObjectSID from bloodyAD 
 target_sid = 'S-1-5-21-4020823815-2796529489-1682170552-2111'
 
 sd = ldaptypes.SR_SECURITY_DESCRIPTOR()
