@@ -1,0 +1,110 @@
+#!/bin/bash
+
+# --- Colors ---
+BLUE='\033[0;34m'
+YELLOW='\033[38;5;226m'
+GREEN='\033[0;32m'
+GREY='\033[38;5;244m'
+RED='\033[0;31m'
+
+# --- Help Menu ---
+usage() {
+    echo -e "${YELLOW}Usage: nxc-sweep <IP> -u <username> -p <password> [-M <module>] [global flags]"
+    echo -e "${YELLOW}Example: nxc-sweep 192.168.1.10 -u admin -p Pass123 -M smb --shares"
+    echo -e "${YELLOW}Example (null session): nxc-sweep 10.10.10.1 -u '' -p ''"
+    echo -e "${YELLOW}Example (blank password): nxc-sweep 10.10.10.1 -u guest -p ''"
+    exit 1
+}
+
+# pulls IP first
+if [[ -z "$1" || "$1" == -* ]]; then
+    usage
+fi
+
+TARGET=$1
+shift
+
+# parses flags
+GLOBAL_FLAGS=()
+MODULE=""
+USER=""
+PASS=""
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -u) USER="$2"; shift 2 ;;
+        -p) PASS="$2"; shift 2 ;;
+        -M) MODULE="$2"; shift 2 ;;
+        *) GLOBAL_FLAGS+=("$1"); shift 1 ;;
+    esac
+done
+
+# Modified validation - allows empty strings but requires flags to be present
+if [[ -z "$TARGET" ]]; then
+    usage
+fi
+
+# Check if -u and -p flags were actually provided (even if empty strings)
+if [[ -z "${USER+x}" || -z "${PASS+x}" ]]; then
+    echo -e "${RED}[!] Missing required flags -u and/or -p${NC}"
+    usage
+fi
+
+# Display session type
+echo -e "${BLUE}[*] Starting NXC sweep for $TARGET ...${NC}"
+if [[ -z "$USER" && -z "$PASS" ]]; then
+    echo -e "${YELLOW}[!] Using null session (anonymous login)${NC}"
+elif [[ -z "$PASS" ]]; then
+    echo -e "${YELLOW}[!] Using blank password for user: $USER${NC}"
+elif [[ -z "$USER" ]]; then
+    echo -e "${YELLOW}[!] Using empty username with password${NC}"
+else
+    echo -e "${BLUE}[*] Username: $USER${NC}"
+fi
+[[ -n "$MODULE" ]] && echo -e "${BLUE}[*] Using module: $MODULE${NC}"
+echo ""
+
+# --- Protocol Handler (rest of your function remains the same) ---
+check_and_run() {
+    local PORT=$1
+    local PROTO=$2
+    shift 2
+    
+    if nc -z -w 2 "$TARGET" "$PORT" 2>/dev/null; then
+        echo -e "${GREEN}[+] Port $PORT open. Checking ${PROTO} ...${NC}"
+        
+        # Build command
+        local CMD="nxc $PROTO $TARGET -u \"$USER\" -p \"$PASS\""
+        
+        # Add module if specified
+        if [[ -n "$MODULE" && "$PROTO" == "smb" ]]; then
+            CMD="$CMD -M $MODULE"
+        fi
+        
+        # Add remaining flags
+        for flag in "${GLOBAL_FLAGS[@]}"; do
+            CMD="$CMD $flag"
+        done
+        
+        for arg in "$@"; do
+            CMD="$CMD $arg"
+        done
+        
+        # Execute
+        eval $CMD
+    else
+        echo -e "${GREY}[-] Port $PORT closed/filtered. Skipping ${PROTO}${NC}"
+    fi
+    echo ""
+}
+
+# --- Protocols ---
+check_and_run 445 "smb" "--shares"
+check_and_run 389 "ldap"
+check_and_run 5985 "winrm"
+check_and_run 3389 "rdp"
+check_and_run 1433 "mssql" "-q 'SELECT @@VERSION'"
+check_and_run 21 "ftp" "--ls"
+check_and_run 22 "ssh" "--sudo-check"
+
+echo -e "${BLUE}[*] All active services checked.${NC}"
