@@ -734,7 +734,7 @@ def run_server(port=80):
     
     # Then print localhost if it exists
     if '127.0.0.1' in ip_addresses:
-        print(f"  {BOLD}lo{RESET} {BLUE}➜{RESET} http://{BOLD}127.0.0.1{RESET}:{BOLD}{port}{RESET}/")
+        print(f"  {BOLD}localhost{RESET} {BLUE}➜{RESET} http://{BOLD}127.0.0.1{RESET}:{BOLD}{port}{RESET}/")
     
     # Print 0.0.0.0
     if '0.0.0.0' in ip_addresses:
