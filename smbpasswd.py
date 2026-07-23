@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "impacket>=0.13.1",
+# ]
+# ///
+
 # Impacket - Collection of Python classes for working with network protocols.
 #
 # SECUREAUTH LABS. Copyright (C) 2021 SecureAuth Corporation. All rights reserved.
@@ -198,4 +205,3 @@ if __name__ == '__main__':
 	else:
 		# If using NTLM hashes for the new password
 		smbpasswd.hSamrChangePasswordUser()
-
