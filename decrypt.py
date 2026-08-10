@@ -2,6 +2,11 @@ from Crypto.Cipher import DES
 from Crypto.Util.Padding import unpad
 import base64
 
+''' Found in SmarterMail.Standard.dll (using dnSpy)
+keymap1 = { 125, 113, 232, 233, 160, 34, 123, 208 }, { 224, 222, 8, 14, 29, 138, 139, 223 });
+keymap2 = { 180, 63, 132, 209, 16, 180, 233, 145 }, { 1, 216, 174, 230, 73, 173, 146, 39 });
+'''
+
 KEY = bytes([180, 63, 132, 209, 16, 180, 233, 145])
 IV = bytes([1, 216, 174, 230, 73, 173, 146, 39])
 
