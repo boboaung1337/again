@@ -1,3 +1,9 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "pycryptodome>=3.23.0",
+# ]
+# ///
 from Crypto.Cipher import DES
 from Crypto.Util.Padding import unpad
 import base64
